@@ -15,6 +15,16 @@
                             <label class="form-label fw-bold">Nama Obat</label>
                             <input type="text" name="nama_obat" class="form-control bg-light" value="{{ $obat->nama_obat }}" required>
                         </div>
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold">Jenis Obat</label>
+                            <select name="jenis_obat" class="form-select bg-light" required>
+                                <option value="" disabled>-- Pilih Jenis --</option>
+                                <option value="Tablet" {{ $obat->jenis_obat == 'Tablet' ? 'selected' : '' }}>Tablet</option>
+                                <option value="Sirup" {{ $obat->jenis_obat == 'Sirup' ? 'selected' : '' }}>Sirup</option>
+                                <option value="Kapsul" {{ $obat->jenis_obat == 'Kapsul' ? 'selected' : '' }}>Kapsul</option>
+                                <option value="Salep" {{ $obat->jenis_obat == 'Salep' ? 'selected' : '' }}>Salep</option>
+                            </select>
+                        </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Stok Saat Ini</label>
                             <input type="number" name="stok" class="form-control bg-light" value="{{ $obat->stok }}" required>
