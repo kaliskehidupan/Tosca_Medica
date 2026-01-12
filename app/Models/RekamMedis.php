@@ -21,6 +21,6 @@ class RekamMedis extends Model
     }
 
     public function obats() {
-        return $this->belongsToMany(Obat::class, 'rekam_medis_obat');
+        return $this->belongsToMany(Obat::class, 'obat_rekam_medis');
     }
 }

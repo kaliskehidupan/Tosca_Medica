@@ -1,53 +1,102 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-        <h2 class="text-2xl font-bold mb-6 text-center">Register</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            {{-- Card Utama --}}
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                {{-- Header dengan warna tema Tosca/Medis --}}
+                <div class="card-header py-4 text-center" style="background-color: #f0fdfa; border-bottom: 1px solid #ccfbf1;">
+                    <h3 class="fw-bold mb-0" style="color: #0d9488;">Daftar Akun</h3>
+                    <p class="text-muted small mb-0">Silakan lengkapi data untuk mendaftar</p>
+                </div>
 
-        @if ($errors->any())
-            <div class="mb-4 text-red-600">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+                <div class="card-body p-4">
+                    {{-- Alert Error --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger py-2 shadow-sm">
+                            <ul class="mb-0 small">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
+
+                        {{-- Input Nama --}}
+                        <div class="mb-3">
+                            <label for="name" class="form-label fw-bold small">Nama Lengkap</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-person"></i></span>
+                                <input id="name" type="text" name="name" value="{{ old('name') }}"
+                                    class="form-control bg-light border-start-0 @error('name') is-invalid @enderror"
+                                    placeholder="Masukkan nama Anda" required autofocus>
+                            </div>
+                        </div>
+
+                        {{-- Input Email --}}
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-bold small">Alamat Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope"></i></span>
+                                <input id="email" type="email" name="email" value="{{ old('email') }}"
+                                    class="form-control bg-light border-start-0 @error('email') is-invalid @enderror"
+                                    placeholder="email@contoh.com" required>
+                            </div>
+                        </div>
+
+                        {{-- Input Password --}}
+                        <div class="mb-3">
+                            <label for="password" class="form-label fw-bold small">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock"></i></span>
+                                <input id="password" type="password" name="password"
+                                    class="form-control bg-light border-start-0 @error('password') is-invalid @enderror"
+                                    placeholder="Minimal 8 karakter" required>
+                            </div>
+                        </div>
+
+                        {{-- Input Confirm Password --}}
+                        <div class="mb-4">
+                            <label for="password_confirmation" class="form-label fw-bold small">Konfirmasi Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-shield-check"></i></span>
+                                <input id="password_confirmation" type="password" name="password_confirmation"
+                                    class="form-control bg-light border-start-0"
+                                    placeholder="Ulangi password" required>
+                            </div>
+                        </div>
+
+                        {{-- Tombol Aksi --}}
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-info text-white fw-bold py-2 shadow-sm rounded-3" style="background-color: #0d9488; border: none;">
+                                <i class="bi bi-person-plus-fill me-2"></i>Daftar Sekarang
+                            </button>
+                            <a href="{{ route('login') }}" class="btn btn-link btn-sm text-decoration-none text-teal mt-2">
+                                Sudah punya akun? <span class="fw-bold">Login di sini</span>
+                            </a>
+                        </div>
+                    </form>
+                </div>
             </div>
-        @endif
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <div class="mb-4">
-                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            {{-- Footer kecil --}}
+            <div class="text-center mt-4 text-muted small">
+                &copy; 2026 Tosca Medica - Sistem Rekam Medis
             </div>
-
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-            </div>
-
-            <div class="mb-4">
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <input id="password" type="password" name="password" required
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-            </div>
-
-            <div class="mb-4">
-                <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                <input id="password_confirmation" type="password" name="password_confirmation" required
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-            </div>
-
-            <div class="flex items-center justify-between mt-4">
-                <a href="{{ route('login') }}" class="text-sm text-gray-600 underline hover:text-gray-900">Already
-                    registered?</a>
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                    Register
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
+</div>
+
+<style>
+    .text-teal { color: #0d9488; }
+    .form-control:focus, .form-select:focus {
+        border-color: #0d9488;
+        box-shadow: 0 0 0 0.25rem rgba(13, 148, 136, 0.25);
+    }
+</style>
 @endsection
